@@ -37,5 +37,19 @@ const findAllActors = async() => {
 	return actorsData;
 };
 
+const insertMovie = async(data) => {
+	await db.movies.create({id:data.id, name:data.name, genres:data.genres});
+};
 
-module.exports = {bulkInsertMovies, bulkInsertGenres, bulkInsertActors, findOneMovie, findAllGenres, findAllActors};
+const findOneGenre = async(genre) => {
+	const genreId = await db.genres.findOne({where: {
+		name:genre
+	}});
+	return genreId;
+};
+
+const insertGenre = async(data) => {
+	await db.genres.create({name:data});
+};
+
+module.exports = {bulkInsertMovies, bulkInsertGenres, bulkInsertActors, findOneMovie, findAllGenres, findAllActors, insertMovie, findOneGenre, insertGenre};
