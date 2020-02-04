@@ -4,4 +4,7 @@ const fetchDataSchema = Joi.object({
 	apis:Joi.array().required(),
 });
 
-module.exports = {fetchDataSchema};
+const getMovieDataSchema = Joi.object({
+	id:Joi.string().required(),
+});
+module.exports = {fetchDataSchema, getMovieDataSchema};

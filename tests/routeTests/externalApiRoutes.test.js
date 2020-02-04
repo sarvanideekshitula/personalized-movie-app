@@ -53,4 +53,18 @@ describe('In the server', () => {
 		expect(response.statusCode).toBe(500);
 		expect(response.result).toBe('Db Operation failed');
 	});
+	it ('The route GET /moviedetails/{id} should return a statusCode 200', async () => {
+		const options = {
+			method: 'GET',
+			url: '/moviedetails/7533474498',
+		};
+		const mockInsertMovies = jest.spyOn(dbUtils, 'findOneMovie');
+		mockInsertMovies.mockResolvedValue({'name':'sarvani'});
+		const mockInsertGenres = jest.spyOn(dbUtils, 'findAllGenres');
+		mockInsertGenres.mockResolvedValue(['Romance']);
+		const mockInsertActors = jest.spyOn(dbUtils, 'findAllActors');
+		mockInsertActors.mockResolvedValue([{'name':'Brad Pitt','movies':['7533474498','1393797017','6621531523']}]);
+		const response = await server.inject(options);
+		expect(response.statusCode).toBe(200);
+	});
 });

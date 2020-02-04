@@ -29,4 +29,34 @@ describe('In dbUtils', () => {
 			mockCreateActors.mockRestore();
 		});
 	});
+	describe('The function findOneMovie', () => {
+		it ('should create an entries in genres', async() => {
+			const mockFindOneMovie = jest.spyOn(db.movies, 'findOne');
+			mockFindOneMovie.mockResolvedValue({'id':'6638453965','name':'The Shawshank Redemption','genres':[2,4]});
+			await dbUtils.findOneMovie('6638453965');
+			expect(mockFindOneMovie).toHaveBeenCalledWith({'where': {'id': '6638453965'}});
+			// expect(result).toBe({dataValues:{'id':'6638453965','name':'The Shawshank Redemption','genres':[2,4]}});
+			mockFindOneMovie.mockRestore();
+		});
+	});
+	describe('The function findAllGenres', () => {
+		it ('should create an entries in genres', async() => {
+			const mockFindAllGenres = jest.spyOn(db.genres, 'findOne');
+			mockFindAllGenres.mockResolvedValue({'id':'6638453965','name':'The Shawshank Redemption','genres':[2,4]});
+			await dbUtils.findAllGenres([4]);
+			expect(mockFindAllGenres).toHaveBeenCalledWith({'where': {'id': 4}});
+			// expect(result).toBe({dataValues:{'id':'6638453965','name':'The Shawshank Redemption','genres':[2,4]}});
+			mockFindAllGenres.mockRestore();
+		});
+	});
+	describe('The function findAllActors', () => {
+		it ('should create an entries in genres', async() => {
+			const mockFindAllActors = jest.spyOn(db.actors, 'findAll');
+			mockFindAllActors.mockResolvedValue([{'name':'Crime','id':1}]);
+			await dbUtils.findAllActors();
+			expect(mockFindAllActors).toHaveBeenCalled();
+			// expect(result).toBe({dataValues:{'id':'6638453965','name':'The Shawshank Redemption','genres':[2,4]}});
+			mockFindAllActors.mockRestore();
+		});
+	});
 });
