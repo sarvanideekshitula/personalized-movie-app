@@ -43,4 +43,29 @@ const getMovieData = async(request, h) => {
 	}
 };
 
-module.exports = {fetchData, getMovieData};
+const insertMovieData = async(request, h) => {
+	try{
+		let movieData = {};
+		let data = request.payload;
+		console.log(data.genres);
+		movieData.id = Math.floor(Math.random() * 1000000000).toString();
+		console.log(movieData.id);
+		movieData.name = data.name;
+		data.genres.forEach(async genre => {
+			await dbUtils.insertGenre(genre);
+		});
+		movieData.genres = [];
+		data.genres.forEach(async genre => {
+			const genreId = await dbUtils.findOneGenre(genre);
+			movieData.genres.push(genreId.dataValues.id);
+		});
+		await dbUtils.insertMovie(movieData);
+		return h.response('Created movie successfully').code(200);
+	}
+	catch(e){
+		console.log(e);
+		return h.response(e.message).code(500);
+	}
+};
+
+module.exports = {fetchData, getMovieData, insertMovieData};
