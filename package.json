@@ -22,7 +22,7 @@
     "sequelize-cli": "^5.5.1"
   },
   "dependencies": {
-    "@hapi/hapi": "^19.1.0",
+    "@hapi/hapi": "^19.1.1",
     "@hapi/joi": "^17.1.0",
     "axios": "^0.19.2",
     "pg": "^7.18.1",
